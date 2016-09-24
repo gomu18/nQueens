@@ -14,6 +14,9 @@ struct pos {
 void placeQueen(int ,int);
 void backTrack();
 void lock(int,int,int);
+void printStack();
+void printMatrix();
+
 
 stack <pos> cds;
 stack <pos> check;
@@ -44,12 +47,6 @@ int main() {
 			a[i][j]=0;
 		}
 	placeQueen(0,0);
-	while(!cds.empty()) {
-	
-		k=cds.top();
-		cds.pop();
-		cout<<k.x<<" "<<k.y<<"\n";
-	}
 	
 	for(i = 0; i < row; i++) {
 		free(a[i]);
@@ -83,6 +80,9 @@ void placeQueen(int i,int j) {
 		v.y=j;
 		cds.push(v);
 		j=0;
+		printMatrix();
+		printStack();
+		cin.get();
 		placeQueen(i+1,j);
 	}
 	else
@@ -148,3 +148,40 @@ void lock(int p,int q,int flag) {
 		e++;
 	}
 }
+
+
+void printStack() {
+
+	  while(!(cds.empty())) {
+
+                u=cds.top();
+                cds.pop();
+                int bc,mc;
+                bc=u.x;
+                mc=u.y;
+                check.push(u);
+                cout<<bc<<" "<<mc<<"\n";
+        }
+	cout<<"\n";
+        while(!(check.empty())) {
+
+                u=check.top();
+                cds.push(u);
+                check.pop();
+        }
+
+}
+
+void printMatrix() {
+
+        for(int ar=0;ar<row;ar++) {
+
+                for(int ac=0;ac<col;ac++) {
+
+                        cout<<a[ar][ac]<<"\t";
+                }
+                cout<<"\n";
+        }
+}
+
+
