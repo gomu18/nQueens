@@ -13,7 +13,6 @@ struct pos {
 
 void placeQueen(int ,int);
 void backTrack();
-int queenSafe(int,int);
 void lock(int,int,int);
 
 stack <pos> cds;
@@ -51,13 +50,13 @@ int main() {
 		cds.pop();
 		cout<<k.x<<" "<<k.y<<"\n";
 	}
-	return 0;
-}
-
-int queenSafe(int i,int j) {
-
-	if(b[i][j])
-		return 1;
+	
+	for(i = 0; i < row; i++) {
+		free(a[i]);
+		free(b[i]);
+	}
+	free(a);
+	free(b);
 	return 0;
 }
 
@@ -76,7 +75,7 @@ void placeQueen(int i,int j) {
 		return;
 	}
 
-	if(queenSafe(i,j)) {
+	if(b[i][j]) {
 
 		a[i][j]=1;
 		lock(i,j,0);
@@ -121,24 +120,7 @@ void backTrack() {
 void lock(int p,int q,int flag) {
 
 	int e,f;
-	e=p;
-	f=q;
-	while(e>=0 && f>=0) {
-	
-		b[e][f]=flag;
-		e--;
-		f--;
-	}
 
-	e=p;
-	f=q;
-	while(e>=0 && f<col) {
-
-		b[e][f]=flag;
-		e--;
-		f++;
-	}
-   
         e=p;
         f=q;
         while(e<row && f<col) {
